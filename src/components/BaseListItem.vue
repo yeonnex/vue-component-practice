@@ -8,11 +8,11 @@ const props = defineProps({
     required: true
   },
   keys: {
-    type: Array, // ex) ['productName', 'productCode', 'productPrice']
+    type: Array, // ex) ['productId', 'productName', 'productCode', 'productPrice']
     required: true,
   },
   keyNames: {
-    type: Array, // ex) ['상품명', '상품코드', '상품가격']
+    type: Array, // ex) ['상품 ID', '상품명', '상품코드', '상품가격']
     required: true
   },
   isDropDowns: {
@@ -28,9 +28,14 @@ const props = defineProps({
 const state = reactive({
   item: props.item
 })
-const update = (e) => {
-  const selectedIndex = e.target.selectedIndex;
-  const selectedOption = props.dropDownList[selectedIndex];
+
+const checkAndUpdate = (key, e) => {
+  if (props.dropDownList.map(d => d[key]).find(d => e.target.value === d)) {
+    const selectedOption = props.dropDownList.find(d => d[key] === e.target.value);
+    update(selectedOption);
+  }
+}
+const update = (selectedOption) => {
   const previousId = state.item[props.keys[0]];
   state.item = selectedOption;
   emit('itemChanged', selectedOption, previousId);
@@ -44,9 +49,15 @@ const update = (e) => {
         <div class="form-group m-3">
           <label class="form-label">{{ keyNames[index] }}</label>
           <div v-if="isDropDowns[index]">
-            <select @change="update" v-model="state.item[key]">
-              <option v-for="d in dropDownList.map(d => d[key])" v-text="d"></option>
-            </select>
+            <input v-model="state.item[key]"
+                   class="form-control"
+                   list="options-list"
+                   @input="checkAndUpdate(key, $event)">
+            <datalist id="options-list">
+              <option v-for="d in dropDownList">
+                {{ d[key] }}
+              </option>
+            </datalist>
           </div>
           <div v-else>
             <input v-model="state.item[key]" class="form-control" type="text">

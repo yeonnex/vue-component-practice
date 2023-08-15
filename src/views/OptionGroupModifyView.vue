@@ -1,7 +1,6 @@
 <script setup>
 import BaseList from "@/components/BaseList.vue";
 import { reactive } from "vue";
-import { Vue } from "vue";
 
 const options = [{productId: 13, productName: '아메리카노', productCode: '400001', productPrice: 5800},
                  {productId: 14, productName: '카페라떼', productCode: '400002', productPrice: 5200},
@@ -23,7 +22,7 @@ const changeItem = (item, previousId) => {
   console.log(`real change!`);
   const deleteIndex = state.options.findIndex((option) => option.productId === previousId);
   state.options.splice(deleteIndex, 1, item);
-  state.options = [...state.options]; // Vue 의 반응성 시스템에 감지하여 UI 업데이트
+  state.options = [...state.options]; // UI BaseList 업데이트. Vue 의 반응성 시스템에 감지시키기 위함.
   console.log(`result ${JSON.stringify(state.options)}`);
 }
 </script>
