@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import OptionGroupModifyView from "@/views/OptionGroupModifyView.vue";
-import BaseBody from "@/components/BaseBody.vue";
 
 const routes = [
   {
