@@ -35,13 +35,15 @@ onMounted(() => {
   state.productsNames = props.dropDownList.map(d => d[props.keys[1]]);
 })
 
-const checkAndUpdate = (key, e) => {
-  if (state.productsNames.findIndex(d => e.target.value === d) !== -1) {
-    const selectedOption = props.dropDownList.find(d => d[key] === e.target.value);
-    update(selectedOption);
-  } else {
-    state.item = {};
-  }
+const checkAndUpdate = (selectedOption) => {
+  console.log(`selectedOption: ${JSON.stringify(selectedOption)}`);
+  // if (state.productsNames.findIndex(d => e.target.value === d) !== -1) {
+  //   const selectedOption = props.dropDownList.find(d => d[key] === e.target.value);
+  //   update(selectedOption);
+  // } else {
+  //   state.item = {};
+  //   state.item = state.item[key] = e.target.value;
+  // }
 }
 const update = (selectedOption) => {
   const previousId = state.item[props.keys[0]];
@@ -61,15 +63,12 @@ const update = (selectedOption) => {
                    v-model="state.item[key]"
                    class="form-control"
                    list="options-list"
-                   @click="state.showOptionsList = true"
-                   @blur="state.showOptionsList = true"
-                   @focus="state.showOptionsList = true"
-                   @input="checkAndUpdate(key, $event)">
-            <datalist id="options-list">
-              <option v-for="d in dropDownList">
+                   @click="checkAndUpdate(key)">
+            <select id="options-list">
+              <option v-for="d in dropDownList" @change="checkAndUpdate(d)">
                 {{ d[key] }}
               </option>
-            </datalist>
+            </select>
           </div>
           <div v-else>
             <input v-model="state.item[key]" class="form-control" type="text">
