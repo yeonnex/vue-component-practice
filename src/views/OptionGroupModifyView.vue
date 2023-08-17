@@ -2,18 +2,36 @@
 import BaseList from "@/components/BaseList.vue";
 import { reactive } from "vue";
 
-const options = [{productId: 13, productName: '아메리카노', productCode: '400001', productPrice: 5800},
-                 {productId: 14, productName: '카페라떼', productCode: '400002', productPrice: 5200},
-                 {productId: 15, productName: '카라멜마끼아또',productCode: '400003', productPrice: 4800}];
-
-const products = [{productId: 13, productName: '아메리카노', productCode: '400001', productPrice: 5800},
-  {productId: 14, productName: '카페라떼', productCode: '400002', productPrice: 5200},
-  {productId: 15, productName: '카라멜마끼아또',productCode: '400003', productPrice: 4800},
-  {productId: 16, productName: '수박쥬스',productCode: '400004', productPrice: 4800},
-  {productId: 17, productName: '자몽쥬스',productCode: '400005', productPrice: 4800},
-  {productId: 18, productName: '아몬드두유',productCode: '400006', productPrice: 4800},
-  {productId: 18, productName: '녹차라떼',productCode: '400007', productPrice: 4800}
-];
+const options = [{
+  "productId": 7911,
+  "productCode": "000001",
+  "productName": "플레인프레즐",
+  "englishName": "",
+  "viewName": "플레인프레즐",
+  "productType": "FINISHED",
+  "productPrice": 6500,
+  "productImage": null
+},
+  {
+    "productId": 7906,
+    "productCode": "000002",
+    "productName": "페스토루꼴라(8013307205742)",
+    "englishName": "",
+    "viewName": "페스토루꼴라(8013307205742)",
+    "productType": "FINISHED",
+    "productPrice": 11000,
+    "productImage": null
+  },
+  {
+    "productId": 8107,
+    "productCode": "000003",
+    "productName": "라떼추가",
+    "englishName": "",
+    "viewName": "라떼추가",
+    "productType": "FINISHED",
+    "productPrice": 500,
+    "productImage": null
+  },];
 
 const state = reactive({
   options: options,

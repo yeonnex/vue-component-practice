@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from "vue";
+import {computed, onMounted, reactive} from "vue";
 
 const emit = defineEmits(['itemChanged']);
 const props = defineProps({
@@ -26,11 +26,16 @@ const props = defineProps({
   }
 })
 const state = reactive({
-  item: props.item
+  item: props.item,
+  productsNames: []
+})
+
+onMounted(() => {
+  state.productsNames = props.dropDownList.map(d => d[props.keys[1]]);
 })
 
 const checkAndUpdate = (key, e) => {
-  if (props.dropDownList.map(d => d[key]).find(d => e.target.value === d)) {
+  if (state.productsNames.findIndex(d => e.target.value === d) !== -1) {
     const selectedOption = props.dropDownList.find(d => d[key] === e.target.value);
     update(selectedOption);
   }
