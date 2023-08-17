@@ -27,7 +27,8 @@ const props = defineProps({
 })
 const state = reactive({
   item: props.item,
-  productsNames: []
+  productsNames: [],
+  showOptionsList: true, // datalist 보이기/숨기기 제어용 상태
 })
 
 onMounted(() => {
@@ -38,6 +39,8 @@ const checkAndUpdate = (key, e) => {
   if (state.productsNames.findIndex(d => e.target.value === d) !== -1) {
     const selectedOption = props.dropDownList.find(d => d[key] === e.target.value);
     update(selectedOption);
+  } else {
+    state.item = {};
   }
 }
 const update = (selectedOption) => {
@@ -54,9 +57,13 @@ const update = (selectedOption) => {
         <div class="form-group m-3">
           <label class="form-label">{{ keyNames[index] }}</label>
           <div v-if="isDropDowns[index]">
-            <input v-model="state.item[key]"
+            <input v-show="state.showOptionsList"
+                   v-model="state.item[key]"
                    class="form-control"
                    list="options-list"
+                   @click="state.showOptionsList = true"
+                   @blur="state.showOptionsList = true"
+                   @focus="state.showOptionsList = true"
                    @input="checkAndUpdate(key, $event)">
             <datalist id="options-list">
               <option v-for="d in dropDownList">
